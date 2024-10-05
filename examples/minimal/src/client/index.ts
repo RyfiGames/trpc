@@ -3,6 +3,7 @@
  */
 import {
   createTRPCClient,
+  loggerLink,
   splitLink,
   unstable_httpBatchStreamLink,
   unstable_httpSubscriptionLink,
@@ -15,15 +16,20 @@ import type { AppRouter } from '../server/index.js';
 // Initialize the tRPC client
 const trpc = createTRPCClient<AppRouter>({
   links: [
-    splitLink({
-      condition: (op) => op.type === 'subscription',
-      true: unstable_httpSubscriptionLink({
-        url: 'http://localhost:3000',
-      }),
-      false: unstable_httpBatchStreamLink({
-        url: 'http://localhost:3000',
-      }),
-    }),
+    // loggerLink({
+    //   logger: (data) => {
+    //     console.log(data)
+    //   }
+    // }),
+    // splitLink({
+    //   condition: (op) => op.type === 'subscription',
+    //   true: unstable_httpSubscriptionLink({
+    //     url: 'http://localhost:3000',
+    //   }),
+    //   false: unstable_httpBatchStreamLink({
+    //     url: 'http://localhost:3000',
+    //   }),
+    // }),
   ],
 });
 
