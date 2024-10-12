@@ -12,10 +12,16 @@ import {
  * We only import the `AppRouter` type from the server - this is not available at runtime
  */
 import type { AppRouter } from '../server/index.js';
+import { jsonLink } from './jsonLink.js';
 
 // Initialize the tRPC client
 const trpc = createTRPCClient<AppRouter>({
   links: [
+    jsonLink({
+      send: async (data) => {
+        console.log(data);
+        return new Promise(() => { });
+    }})
     // loggerLink({
     //   logger: (data) => {
     //     console.log(data)

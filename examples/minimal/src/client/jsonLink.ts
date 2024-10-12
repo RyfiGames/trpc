@@ -25,7 +25,6 @@ export function jsonLink<TRouter extends AnyRouter = AnyRouter>(
               return;
           }
           observer.next({
-            context: undefined,
             result: transformed.result
           });
           observer.complete()
